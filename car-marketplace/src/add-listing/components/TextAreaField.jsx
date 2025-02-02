@@ -1,9 +1,9 @@
 import { Textarea } from "@/components/ui/textarea"
 
-const TextAreaField = (item) => {
+const TextAreaField = ({item, handleInputChange}) => {
   return (
     <div>
-      <Textarea placeholder={item?.label} />
+      <Textarea placeholder={item?.label} onChange={(e)=>handleInputChange(item.name, e.target.value)} required={item?.required}/>
     </div>
   )
 }

@@ -4,9 +4,27 @@ import carDetails from "@/Shared/carDetails.json";
 import InputField from "./components/InputField";
 import DropdownField from "./components/DropdownField";
 import TextAreaField from "./components/TextAreaField";
-
+import { Separator } from "@/components/ui/separator";
+import features from "@/Shared/features.json";
+import { Checkbox } from "@/components/ui/checkbox";
+import { Button } from "@/components/ui/button";
+import { useState } from "react";
 
 function AddListing() {
+  const [formData, setFormData] = useState([]);
+
+  const handleInputChange = (name, value) => {
+    setFormData((prevData) => ({
+      ...prevData,
+      [name]: value,
+    }));
+    console.log(formData);
+  };
+
+  const onSubmit = (e) => {
+    e.preventDefault();
+    console.log(formData);
+  }
   return (
     <div>
       <Header />
@@ -19,20 +37,45 @@ function AddListing() {
             <div className="grid grid-cols-1 md:grid-cols-2 gap-4">
               {carDetails.carDetails.map((item, index) => (
                 <div key={index} className="">
-                  <label className="text-sm text-gray-600">{item.label} {item.required&&<span className="text-red-600">*</span>}</label>
+                  <label className="text-sm text-gray-600">
+                    {item.label}{" "}
+                    {item.required && <span className="text-red-600">*</span>}
+                  </label>
                   {item.fieldType === "text" || item.fieldType === "number" ? (
-                    <InputField item={item} />)
-                    :item.fieldType === "dropdown" ? (<DropdownField item={item} />)
-                    :item.fieldType === "textarea" ? (<TextAreaField item={item} />)
-                   : null}
+                    <InputField
+                      item={item}
+                      handleInputChange={handleInputChange}
+                    />
+                  ) : item.fieldType === "dropdown" ? (
+                    <DropdownField item={item} handleInputChange={handleInputChange}/>
+                  ) : item.fieldType === "textarea" ? (
+                    <TextAreaField item={item} handleInputChange={handleInputChange}/>
+                  ) : null}
                 </div>
               ))}
             </div>
           </div>
 
+          <Separator className="my-10" />
           {/* Features */}
-          
+          <div>
+            <h2 className="font-medium text-xl my-6">Features</h2>
+            <div className="grid grid-cols-1 sm:grid-cols-2 md:grid-cols-3 lg:grid-cols-4 gap-2">
+              {features.features.map((item, index) => (
+                <div key={index} className="flex items-center gap-2">
+                  <Checkbox onCheckedChange={(value)=>(handleInputChange(item.name,value))}/> <h2>{item.label}</h2>
+                </div>
+              ))}
+            </div>
+          </div>
           {/* Car Images */}
+
+          {/* Save Data */}
+          <div className="mt-10 flex justify-end">
+            <Button onClick={(e)=>onSubmit(e)} className="bg-primary text-white py-2 rounded-lg mt-10 me-10">
+              Save Data
+            </Button>
+          </div>
         </form>
       </div>
       {/* <Footer /> */}
