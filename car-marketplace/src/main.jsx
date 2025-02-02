@@ -4,6 +4,8 @@ import "./index.css";
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 import Home from "./home.jsx";
 import Contact from "./contact";
+import Profile from "./profile";
+import AddListing from "./add-listing";
 import { ClerkProvider } from "@clerk/clerk-react";
 
 const router = createBrowserRouter([
@@ -15,6 +17,14 @@ const router = createBrowserRouter([
     path: "/contact",
     element: <Contact />,
   },
+  {
+    path: "/profile",
+    element: <Profile />,
+  },
+  {
+    path: "/add-listing",
+    element: <AddListing />,
+  }
 ]);
 
 // Import your Publishable Key

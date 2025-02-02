@@ -1,8 +1,10 @@
 import Category from "./components/Category"
+import InfoSection from "@/components/InfoSection"
 import Header from "./components/Header"
 import Hero from "./components/Hero"
 import MostSearchedCar from "./components/MostSearchedCar"
 import FakeData from "./Shared/FakeData"
+import Footer from "./components/footer"
 
 function Home() {
   console.log(FakeData.carList);
@@ -16,6 +18,12 @@ function Home() {
         <Category />
         {/* MostSearchedCar section */}
         <MostSearchedCar />
+        {/* infoSection */}
+        {/* <GridWithOffsetBackground />
+         */}
+         <InfoSection />
+         {/* Footer section */}
+         <Footer />
     </div>
   )
 }

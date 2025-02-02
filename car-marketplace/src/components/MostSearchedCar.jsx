@@ -10,12 +10,12 @@ import {
 
 const MostSearchedCar = () => {
   return (
-    <div className='mx-24'>
-      <h2 className="font-bold text-3xl text-center my-16">
+    <div className="mx-24 ">
+      <h2 className="font-bold text-3xl text-center mt-16 mb-8">
         Most Searched Car
       </h2>
-      {/* CarItem section */}
 
+      {/* CarItem section */}
       <Carousel>
         <CarouselContent>
           {FakeData.carList.map((car, index) => (
@@ -25,8 +25,11 @@ const MostSearchedCar = () => {
           ))}
         </CarouselContent>
         <CarouselPrevious />
-      <CarouselNext />
+        <CarouselNext />
       </Carousel>
+
+      <div className="mt-16">
+      </div>
     </div>
   );
 };

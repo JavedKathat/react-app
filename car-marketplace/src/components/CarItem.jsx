@@ -6,7 +6,8 @@ import { Separator } from "./ui/separator";
 
 function CarItem({ car, index }) {
   return (
-    <div key={index} className="rounded-xl bg-white border shadow-md cursor-pointer">
+    <div key={index} className="rounded-xl bg-white border shadow-md cursor-pointer hover:shadow-xl hover:shadow-slate-400 hover:transition-shadow">
+      <h2 className="absolute m-2 bg-green-500 px-2 rounded-full text-sm">New</h2>
       <img src={car?.image} width={'100%'} height={250} alt={car?.name}
        className="rounded-t-xl"
        />
