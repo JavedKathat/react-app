@@ -12,6 +12,7 @@ import { useState } from "react";
 import { db } from "../../configs";
 import { CarListing } from "../../configs/schema";
 import IconField from "./components/IconField";
+import UploadImages from "./components/UploadImages";
 
 function AddListing() {
   const [formData, setFormData] = useState([]);
@@ -104,7 +105,10 @@ function AddListing() {
               ))}
             </div>
           </div>
+
+          <Separator className="my-10"/>
           {/* Car Images */}
+          <UploadImages/>
 
           {/* Save Data */}
           <div className="mt-10 flex justify-end">
