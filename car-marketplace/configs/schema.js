@@ -13,6 +13,7 @@ export const CarListing = pgTable('carListing',{
     year:varchar('year').notNull(),
     driveType:varchar('driveType').notNull(),
     transmission:varchar('transmission').notNull(),
+    fuelType:varchar('fuelType').notNull(),
     mileage:varchar('mileage').notNull(),
     engineSize:varchar('engineSize'),
     cylinder:varchar('cylinder'),
