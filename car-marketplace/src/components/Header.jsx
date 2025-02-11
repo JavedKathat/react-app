@@ -14,7 +14,7 @@ const Header = () => {
         <li className="font-medium hover:scale-105 transition-all cursor-pointer hover:text-primary">New</li>
         <li className="font-medium hover:scale-105 transition-all cursor-pointer hover:text-primary">Preowned</li>
       </ul>
-      {isSignedIn ? (
+      {isSignedIn? (
         <div className="flex items-center space-x-4">
           <UserButton />
           <Link to='/profile'>
@@ -22,7 +22,11 @@ const Header = () => {
           </Link>
         </div>
       ) : (
-        <Button>Submit Listing </Button>
+        <>
+        <Link to='/login'>
+            <Button>Submit Listing </Button>
+          </Link>
+        </>
       )}
     </div>
   );

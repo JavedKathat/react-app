@@ -7,6 +7,8 @@ import Contact from "./contact";
 import Profile from "./profile";
 import AddListing from "./add-listing";
 import { ClerkProvider } from "@clerk/clerk-react";
+import { Toaster } from "./components/ui/sonner";
+import UserLogIn from "./components/UserLogIn";
 
 const router = createBrowserRouter([
   {
@@ -24,7 +26,10 @@ const router = createBrowserRouter([
   {
     path: "/add-listing",
     element: <AddListing />,
-  }
+  },
+  {path: "/login",
+  element: <UserLogIn/>,
+}
 ]);
 
 // Import your Publishable Key
@@ -38,6 +43,7 @@ createRoot(document.getElementById("root")).render(
   <StrictMode>
     <ClerkProvider publishableKey={PUBLISHABLE_KEY} afterSignOutUrl="/">
       <RouterProvider router={router} />
+      <Toaster />
     </ClerkProvider>
   </StrictMode>
 );

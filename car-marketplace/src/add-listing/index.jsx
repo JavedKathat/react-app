@@ -1,4 +1,3 @@
-// import Footer from "@/components/Footer"
 import Header from "@/components/Header";
 import carDetails from "@/Shared/carDetails.json";
 import InputField from "./components/InputField";
@@ -13,10 +12,21 @@ import { db } from "../../configs";
 import { CarListing } from "../../configs/schema";
 import IconField from "./components/IconField";
 import UploadImages from "./components/UploadImages";
+import { BiLoaderAlt } from "react-icons/bi";
+import { toast } from "sonner";
+import { useNavigate } from "react-router-dom";
+import { useUser } from "@clerk/clerk-react";
+
+import moment from "moment";
 
 function AddListing() {
   const [formData, setFormData] = useState([]);
   const [featuresData, setFeaturesData] = useState([]);
+  const [triggerUploadImages, setTriggerUploadImages] = useState();
+  const [loader, setLoader] = useState(false);
+  const navigate = useNavigate();
+  const {user} = useUser();
+  let mr;
 
 
   /**
@@ -46,18 +56,27 @@ function AddListing() {
   };
 
   const onSubmit =async(e) => {
+    setLoader(true);
     e.preventDefault();
     console.log(formData);
+    toast("Please wait...");
+    // console.log(user?.primaryEmailAddress?.emailAddress)
+
     try {
       const result = await db.insert(CarListing).values({
         ...formData,
-        features:featuresData
-      });
+        features:featuresData,
+        createdBy:user?.primaryEmailAddress?.emailAddress,
+        postedOn:moment().format("DD-MM-YYYY HH:mm:ss")
+      }).returning({id : CarListing.id});
       if(result){
         console.log("Data saved succesfully")
-      }
-      
+        setTriggerUploadImages(result[0]?.id);
+        toast.success("Listing saved successfully");
+        setLoader(false);
+      }     
     } catch (e) {
+      setLoader(false);
       console.log("Error occured while saving data ", e)
     }
   }
@@ -108,12 +127,12 @@ function AddListing() {
 
           <Separator className="my-10"/>
           {/* Car Images */}
-          <UploadImages/>
+          <UploadImages triggerUploadImages={triggerUploadImages} setLoader={(v)=>{setLoader(v);navigate("/profile")}}/>
 
           {/* Save Data */}
           <div className="mt-10 flex justify-end">
-            <Button onClick={(e)=>onSubmit(e)} className="bg-primary text-white py-2 rounded-lg mt-10 me-10">
-              Save Data
+            <Button onClick={(e)=>onSubmit(e)} className="bg-primary text-white py-2 rounded-lg mt-10 me-10" disabled={loader}>
+              {!loader ? 'Save': <BiLoaderAlt className="animate-spin text-lg"/>}
             </Button>
           </div>
         </form>
