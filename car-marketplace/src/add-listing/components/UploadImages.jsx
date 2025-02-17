@@ -8,8 +8,12 @@ import { storage } from "../../../configs/firebaseConfig";
 import { CarImages } from "../../../configs/schema";
 import { db } from "../../../configs";
 
-function UploadImages({ triggerUploadImages,setLoader }) {
-  const [fileList, setFileList] = useState([]);
+function UploadImages({ triggerUploadImages, setLoader, carImagesUrl, mode }) {
+  const [fileList, setFileList] = useState(carImagesUrl || []);
+  useEffect(() => {
+    setFileList(carImagesUrl);
+  }, [carImagesUrl]);
+
   useEffect(() => {
     if (triggerUploadImages) {
       uploadImagesToServer();
@@ -46,11 +50,11 @@ function UploadImages({ triggerUploadImages,setLoader }) {
             console.log(downloadUrl);
             await db.insert(CarImages).values({
               imageUrl: downloadUrl,
-              carListingId: triggerUploadImages
-            })
+              carListingId: triggerUploadImages,
+            });
           });
         });
-        setLoader(false);
+      setLoader(false);
     });
   };
 
@@ -65,7 +69,7 @@ function UploadImages({ triggerUploadImages,setLoader }) {
               onClick={() => onImageRemove(image, index)}
             />
             <img
-              src={URL.createObjectURL(image)}
+              src={mode == "edit" ? image.imageUrl : URL.createObjectURL(image)}
               className="w-full h-[130px] object-cover rounded-lg"
             />
           </div>

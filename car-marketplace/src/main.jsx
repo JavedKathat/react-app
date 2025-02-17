@@ -25,7 +25,11 @@ const router = createBrowserRouter([
   },
   {
     path: "/add-listing",
-    element: <AddListing />,
+    element: <AddListing title={'Add New'} action={"Save"}/>,
+  },
+  {
+    path: "/edit-listing",
+    element: <AddListing title={'Edit'}  action={"Update"}/>,
   },
   {path: "/login",
   element: <UserLogIn/>,

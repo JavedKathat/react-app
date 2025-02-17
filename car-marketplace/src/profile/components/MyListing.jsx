@@ -43,10 +43,10 @@ function MyListing() {
           <div key={index} className=" gap-5 mt-5">
             <CarItem car={item} />
             <div className="p-2 bg-gray-50 rounded-lg flex gap-2 justify-between">
+              {/* <Button>Edit</Button> */}
+              <Link to={`/edit-listing?mode=edit&id=${item?.id}`} className="w-full">
               <Button variant="outline" className="w-full">Edit</Button>
-              {/* <Link to={`/edit-listing/${item.id}`}>
-              <Button>Edit</Button>
-              </Link> */}
+              </Link>
               <Button variant='destructive'><FaTrashAlt/></Button>
             </div>
           </div>

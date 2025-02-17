@@ -3,11 +3,11 @@ import InfoSection from "@/components/InfoSection"
 import Header from "./components/Header"
 import Hero from "./components/Hero"
 import MostSearchedCar from "./components/MostSearchedCar"
-import FakeData from "./Shared/FakeData"
+// import FakeData from "./Shared/FakeData"
 import Footer from "./components/footer"
 
 function Home() {
-  console.log(FakeData.carList);
+  // console.log(FakeData.carList);
   return (
     <div>
       {/* Header section */}

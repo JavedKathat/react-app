@@ -46,6 +46,11 @@
         "fieldType": "checkbox"
       },
       {
+        "label": "ADAS",
+        "name": "adas",
+        "fieldType": "checkbox"
+      },
+      {
         "label": "Child Safety Locks",
         "name": "childSafetyLocks",
         "fieldType": "checkbox"

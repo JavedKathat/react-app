@@ -3,21 +3,27 @@ import { BsFuelPump } from "react-icons/bs";
 import { GiGearStickPattern } from "react-icons/gi";
 import { MdOpenInNew } from "react-icons/md";
 import { Separator } from "./ui/separator";
+import { use, useEffect } from "react";
+
 
 function CarItem({ car, index }) {
+  useEffect(() => {
+    console.log(car);
+  },[]);
+
+  const imageUrl = car?.images?.[0]?.imageUrl || "default-image-url.jpg"; // Use a fallback image if imageUrl is undefined
+
   return (
     <div key={index} className="rounded-xl bg-white border shadow-md cursor-pointer hover:shadow-xl hover:shadow-slate-400 hover:transition-shadow">
       <h2 className="absolute m-2 bg-green-500 px-2 rounded-full text-sm">New</h2>
-      <img src={car?.images[0].imageUrl} width={'100%'} height={250} alt={car?.listingTitle}
-       className="rounded-t-xl h-[180px] object-cover"
-       />
+      <img src={imageUrl} width={'100%'} height={250} alt={car?.listingTitle} className="rounded-t-xl h-[180px] object-cover" />
       <div className="p-4">
         <h2 className="font-bold text-lg mb-2">{car?.listingTitle}</h2>
         <Separator/>
         <div className="grid grid-cols-3 mt-5">
             <div className="flex flex-col items-center">
             <SlSpeedometer className="text-lg mb-1" />
-            <h2>{car?.mileage}Miles</h2>
+            <h2>{car?.mileage} Miles</h2>
             </div>
 
             <div className="flex flex-col items-center">
@@ -39,5 +45,6 @@ function CarItem({ car, index }) {
     </div>
   );
 }
+
 
 export default CarItem;
