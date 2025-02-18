@@ -24,7 +24,7 @@ export const Search = () => {
         </SelectTrigger>
         <SelectContent>
           <SelectItem value="New">New</SelectItem>
-          <SelectItem value="Old">Old</SelectItem>
+          <SelectItem value="Used">Used</SelectItem>
           <SelectItem value="Certified Pre-owend">Certified Pre-owend</SelectItem>
         </SelectContent>
       </Select>
