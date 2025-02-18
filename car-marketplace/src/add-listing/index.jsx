@@ -70,7 +70,7 @@ function AddListing({ title, action }) {
       ...prevData,
       [name]: value,
     }));
-    console.log(formData);
+    // console.log(formData);
   };
 
   /**
@@ -83,7 +83,7 @@ function AddListing({ title, action }) {
       ...prevData,
       [name]: value,
     }));
-    console.log(featuresData);
+    // console.log(featuresData);
   };
 
   const onSubmit = async (e) => {
@@ -102,7 +102,9 @@ function AddListing({ title, action }) {
           postedOn: moment().format("DD-MM-YYYY HH:mm:ss"),
         })
         .where(eq(CarListing.id, recordId)).returning({ id: CarListing.id });
+        toast.success("Listing updated successfully");
         setLoader(false);
+        navigate("/profile");
         console.log("Result  ", result);
         
     } else {
@@ -121,6 +123,7 @@ function AddListing({ title, action }) {
           setTriggerUploadImages(result[0]?.id);
           toast.success("Listing saved successfully");
           setLoader(false);
+          navigate("/profile");
         }
       } catch (e) {
         setLoader(false);
@@ -149,7 +152,7 @@ function AddListing({ title, action }) {
                     <InputField
                       item={item}
                       handleInputChange={handleInputChange}
-                      carInfo={{ ...carInfo, mileage: Number(carInfo.mileage) }}
+                      carInfo={carInfo }
                     />
                   ) : item.fieldType === "dropdown" ? (
                     <DropdownField
@@ -197,6 +200,7 @@ function AddListing({ title, action }) {
               navigate("/profile");
             }}
             carImagesUrl={carImagesUrl}
+            carInfo={carInfo}
             mode={mode}
           />
 

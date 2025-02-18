@@ -9,6 +9,8 @@ import AddListing from "./add-listing";
 import { ClerkProvider } from "@clerk/clerk-react";
 import { Toaster } from "./components/ui/sonner";
 import UserLogIn from "./components/UserLogIn";
+import SearchByCategory from "./search/[category]";
+import SearchByOptions from "./search";
 
 const router = createBrowserRouter([
   {
@@ -25,15 +27,21 @@ const router = createBrowserRouter([
   },
   {
     path: "/add-listing",
-    element: <AddListing title={'Add New'} action={"Save"}/>,
+    element: <AddListing title={"Add New"} action={"Save"} />,
   },
   {
     path: "/edit-listing",
-    element: <AddListing title={'Edit'}  action={"Update"}/>,
+    element: <AddListing title={"Edit"} action={"Update"} />,
   },
-  {path: "/login",
-  element: <UserLogIn/>,
-}
+  {
+    path: "/search/:category/",
+    element: <SearchByCategory />,
+  },
+  {
+    path: "/search/",
+    element: <SearchByOptions />,
+  },
+  { path: "/login", element: <UserLogIn /> },
 ]);
 
 // Import your Publishable Key

@@ -8,7 +8,6 @@ import { use, useEffect } from "react";
 
 function CarItem({ car, index }) {
   useEffect(() => {
-    console.log(car);
   },[]);
 
   const imageUrl = car?.images?.[0]?.imageUrl || "default-image-url.jpg"; // Use a fallback image if imageUrl is undefined

@@ -7,12 +7,27 @@ import { getDownloadURL, ref, uploadBytes } from "firebase/storage";
 import { storage } from "../../../configs/firebaseConfig";
 import { CarImages } from "../../../configs/schema";
 import { db } from "../../../configs";
+import { use } from "react";
+import { eq } from "drizzle-orm";
 
-function UploadImages({ triggerUploadImages, setLoader, carImagesUrl, mode }) {
-  const [fileList, setFileList] = useState(carImagesUrl || []);
+function UploadImages({
+  triggerUploadImages,
+  setLoader,
+  carInfo,
+  mode,
+}) {
+  const [fileList, setFileList] = useState([]);
+  const [editCarImagesList, setEditCarImagesList] = useState([]);
+
   useEffect(() => {
-    setFileList(carImagesUrl);
-  }, [carImagesUrl]);
+    if (mode == "edit") {
+      setEditCarImagesList([]);
+      carInfo?.images?.forEach((image) => {
+        setEditCarImagesList((prev) => [...prev, image?.imageUrl]);
+      });
+    }
+  }, [carInfo]);
+
 
   useEffect(() => {
     if (triggerUploadImages) {
@@ -32,6 +47,13 @@ function UploadImages({ triggerUploadImages, setLoader, carImagesUrl, mode }) {
     const result = fileList.filter((item) => item != image);
     setFileList(result);
   };
+  const onImageRemoveFromDB = async (image, index) => {
+    const result = await db.delete(CarImages).where(eq(CarImages.id, carInfo?.images[index]?.id));
+
+    const imageList = editCarImagesList.filter((item) => item != image);
+    setEditCarImagesList(imageList);
+  }
+
   const uploadImagesToServer = () => {
     setLoader(true);
     fileList.forEach((file) => {
@@ -62,6 +84,19 @@ function UploadImages({ triggerUploadImages, setLoader, carImagesUrl, mode }) {
     <div>
       <h2 className="font-medium mb-3 text-xl">Upload Images</h2>
       <div className="grid grid-cols-2 md:grid-cols-4 lg:grid-cols-6 gap-4">
+        {mode == "edit" && editCarImagesList.map((image, index) => (
+          <div key={index} className="relative">
+            <IoMdCloseCircle
+              className="absolute m-2 text-white text-lg hover:cursor-pointer"
+              onClick={() => onImageRemoveFromDB(image, index)}
+            />
+            <img
+              src={image}
+              className="w-full h-[130px] object-cover rounded-lg"
+            />
+          </div>
+        ))}
+
         {fileList.map((image, index) => (
           <div key={index} className="relative">
             <IoMdCloseCircle
@@ -69,7 +104,7 @@ function UploadImages({ triggerUploadImages, setLoader, carImagesUrl, mode }) {
               onClick={() => onImageRemove(image, index)}
             />
             <img
-              src={mode == "edit" ? image.imageUrl : URL.createObjectURL(image)}
+              src={URL.createObjectURL(image)}
               className="w-full h-[130px] object-cover rounded-lg"
             />
           </div>
