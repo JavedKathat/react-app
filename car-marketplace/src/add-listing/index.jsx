@@ -18,7 +18,6 @@ import { useNavigate, useSearchParams } from "react-router-dom";
 import { useUser } from "@clerk/clerk-react";
 
 import moment from "moment";
-import PropTypes from "prop-types";
 import { eq } from "drizzle-orm";
 import Service from "@/Shared/Service";
 
