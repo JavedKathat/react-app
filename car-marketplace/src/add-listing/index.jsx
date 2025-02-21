@@ -114,6 +114,8 @@ function AddListing({ title, action }) {
             ...formData,
             features: featuresData,
             createdBy: user?.primaryEmailAddress?.emailAddress,
+            userName: user?.fullName,
+            userImageUrl:user?.imageUrl,
             postedOn: moment().format("DD-MM-YYYY HH:mm:ss"),
           })
           .returning({ id: CarListing.id });

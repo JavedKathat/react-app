@@ -19,9 +19,9 @@ function Home() {
         {/* MostSearchedCar section */}
         <MostSearchedCar />
         {/* infoSection */}
+        <InfoSection />
         {/* <GridWithOffsetBackground />
          */}
-         <InfoSection />
          {/* Footer section */}
          <Footer />
     </div>

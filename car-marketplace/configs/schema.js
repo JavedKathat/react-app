@@ -25,6 +25,8 @@ export const CarListing = pgTable('carListing',{
     features:json("features"),
     // createdBy:integer('createdBy').notNull().references(() => User.id),
     createdBy:varchar('createdBy').notNull(),
+    userName:varchar('userName').notNull().default('User'),
+    userImageUrl:varchar('userImageUrl').default('https://www.freepik.com/icon/profile_11121549#fromView=keyword&page=1&position=27&uuid=0f71639a-49c7-420c-8f14-2786129fb7bf'),
     postedOn:varchar('postedOn').notNull(),
 })
 

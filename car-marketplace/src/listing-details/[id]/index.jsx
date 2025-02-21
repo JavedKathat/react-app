@@ -9,7 +9,13 @@ import { useEffect, useState } from "react";
 import ImageGallery from "../components/ImageGallery";
 import Description from "../components/Description";
 import { BiLoaderAlt } from "react-icons/bi";
-
+import Features from "../components/Features";
+import Pricing from "../components/Pricing";
+import Specification from "../components/Specification";
+import OwnerDetails from "../components/OwnerDetails";
+import FinanacialCalculator from "../components/FinanacialCalculator";
+import Footer from "@/components/Footer";
+import MostSearchedCar from "@/components/MostSearchedCar";
 
 function ListingDetails() {
   const { id } = useParams();
@@ -18,7 +24,7 @@ function ListingDetails() {
 
   useEffect(() => {
     GetCarListing();
-  }, []);
+  }, [id]);
 
   const GetCarListing = async () => {
     const result = await db
@@ -31,7 +37,6 @@ function ListingDetails() {
     setCarDetails(resp[0]);
     setLoader(true);
 
-    console.log(loader);
   };
   return (
     <div>
@@ -44,31 +49,42 @@ function ListingDetails() {
         <div className="grid grid-cols-1 md:grid-cols-3 w-full mt-6">
           {/* Left  */}
           {!loader ? (
-            
             <div className="w-full h-[310px] md:col-span-2 bg-slate-100 rounded-xl animate-pulse items-center flex justify-center border">
               <BiLoaderAlt className="animate-spin text-lg" />
             </div>
           ) : (
-            <div className="md:col-span-2">
-              {/* Image Gallery */}
-              {loader ? <ImageGallery carDetails={carDetails} /> : ""}
+            <>
+              <div className="md:col-span-2">
+                {/* Image Gallery */}
+                {loader ? <ImageGallery carDetails={carDetails} /> : ""}
 
-              {/* Description */}
-              <Description carDetails={carDetails} />
+                {/* Description */}
+                <Description carDetails={carDetails} />
 
-              {/* FeaturesList */}
-            </div>
+                {/* FeaturesList */}
+                <Features features={carDetails?.features} />
+
+                {/* FinanacialCalculator */}
+                <FinanacialCalculator carDetails={carDetails} />
+              </div>
+
+              {/* Right */}
+              <div>
+                {/* Pricing */}
+                <Pricing carDetails={carDetails} />
+
+                {/* Car Specification */}
+                <Specification carDetails={carDetails} />
+
+                {/* Owners Details */}
+                <OwnerDetails carDetails={carDetails}/>
+              </div>
+            </>
           )}
-
-          {/* Right */}
-          <div className="bg-red-200">
-            Right
-            {/* Pricing */}
-            {/* Car Properties */}
-            {/* Owners Details */}
-          </div>
         </div>
+        <MostSearchedCar/>
       </div>
+      <Footer/>
     </div>
   );
 }
