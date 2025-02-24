@@ -4,7 +4,7 @@ import Header from "./components/Header"
 import Hero from "./components/Hero"
 import MostSearchedCar from "./components/MostSearchedCar"
 // import FakeData from "./Shared/FakeData"
-import Footer from "./components/footer"
+import Footer from "./components/Footer"
 
 function Home() {
   // console.log(FakeData.carList);
